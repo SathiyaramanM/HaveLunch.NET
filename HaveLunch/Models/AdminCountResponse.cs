@@ -1,0 +1,1 @@
+public record AdminCountResponse(int Count);

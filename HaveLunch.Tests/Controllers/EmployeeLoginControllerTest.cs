@@ -21,7 +21,7 @@ public class EmployeeLoginControllerTest
 
         var result = await controller.LoginAsync(model);
 
-        var returnValue = Assert.IsAssignableFrom<OkObjectResult>(result).Value as Employee;
+        var returnValue = Assert.IsAssignableFrom<OkObjectResult>(result).Value as EmployeeResponse;
         Assert.Equal(model.Id, returnValue.Id);
         Assert.Equal(model.Name, returnValue.Name);
     }

@@ -7,12 +7,12 @@ namespace HaveLunch.Services;
 
 public interface IEmployeeService
 {
-    Task<Employee> LoginAsync(EmployeeLoginModel model);
+    Task<EmployeeResponse> LoginAsync(EmployeeLoginModel model);
 }
 
 public class EmployeeService(AppDbContext appDbContext) : IEmployeeService
 {
-    public async Task<Employee> LoginAsync(EmployeeLoginModel model)
+    public async Task<EmployeeResponse> LoginAsync(EmployeeLoginModel model)
     {
         var employee = await appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == model.Id);
         if (employee == null)
@@ -29,6 +29,6 @@ public class EmployeeService(AppDbContext appDbContext) : IEmployeeService
                 await appDbContext.SaveChangesAsync();
             }
         }
-        return employee;
+        return new EmployeeResponse(employee.Id, employee.Name);
     }
 }

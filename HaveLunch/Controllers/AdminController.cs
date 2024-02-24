@@ -10,7 +10,7 @@ public class AdminController(IAdminService adminService) : Controller
     [HttpGet]
     public async Task<IActionResult> GetLunchAttendanceCount(string date = "")
     {
-        var dateTimeOffset = DateTimeOffset.Parse(date);
-        return Ok(await adminService.GetLunchAttendanceCount(dateTimeOffset));
+        var dateTime = DateTime.Parse(date).ToUniversalTime();
+        return Ok(await adminService.GetLunchAttendanceCount(dateTime));
     }
 }

@@ -9,7 +9,7 @@ public interface IEmployeeAttendanceService
 {
     Task<EmployeeAttendanceResponse> CreateOrUpdateEmployeeAttendance(EmployeeAttendanceRequest request);
 
-    Task<EmployeeAttendanceResponse> GetEmployeeAttendanceDetail(int employeeId, DateTimeOffset date);
+    Task<EmployeeAttendanceResponse> GetEmployeeAttendanceDetail(int employeeId, DateTime date);
 
     Task<List<EmployeeAttendanceResponse>> GetEmployeeAttendanceHistory(int employeeId, int page = 1);
 }
@@ -32,7 +32,7 @@ public class EmployeeAttendanceService(AppDbContext appDbContext) : IEmployeeAtt
             employeeAttendance = new EmployeeAttendance
             {
                 Employee = employee,
-                Date = new DateTimeOffset(request.Date.ToDateTime(TimeOnly.MinValue)),
+                Date = request.Date.ToUniversalTime(),
                 Status = request.Status
             };
             await appDbContext.EmployeeAttendances.AddAsync(employeeAttendance);
@@ -53,7 +53,7 @@ public class EmployeeAttendanceService(AppDbContext appDbContext) : IEmployeeAtt
         };
     }
 
-    public async Task<EmployeeAttendanceResponse> GetEmployeeAttendanceDetail(int employeeId, DateTimeOffset date)
+    public async Task<EmployeeAttendanceResponse> GetEmployeeAttendanceDetail(int employeeId, DateTime date)
     {
         var employeeAttendance = await appDbContext
                                     .EmployeeAttendances

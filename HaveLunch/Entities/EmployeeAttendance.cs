@@ -11,7 +11,7 @@ public class EmployeeAttendance
     public int EmployeeId { get; set; }
     public Employee Employee { get; set; }
 
-    public DateTimeOffset Date { get; set; }
+    public DateTime Date { get; set; }
 
     public AttendanceStatus Status { get; set; }
 }

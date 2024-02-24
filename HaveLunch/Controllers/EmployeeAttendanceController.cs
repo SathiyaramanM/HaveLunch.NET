@@ -13,8 +13,8 @@ public class EmployeeAttendanceController(IEmployeeAttendanceService employeeAtt
     {
         try
         {
-            var dateTimeOffset = DateTimeOffset.Parse(date);
-            return Ok(await employeeAttendanceService.GetEmployeeAttendanceDetail(employeeId, dateTimeOffset));
+            var dateTime = DateTime.Parse(date).ToUniversalTime();
+            return Ok(await employeeAttendanceService.GetEmployeeAttendanceDetail(employeeId, dateTime));
         }
         catch (Exception e)
         {

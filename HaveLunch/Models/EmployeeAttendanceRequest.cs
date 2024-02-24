@@ -8,7 +8,7 @@ public class EmployeeAttendanceRequest
 
     public int EmployeeId { get; set; }
     
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
     public AttendanceStatus Status { get; set; }
 }

@@ -13,7 +13,7 @@ public class AdminService(AppDbContext appDbContext) : IAdminService
 {
     public async Task<AdminCountResponse> GetLunchAttendanceCount(DateTime date)
     {
-        var employeesCount = await appDbContext.EmployeeAttendances.CountAsync(x => x.Date == date);
+        var employeesCount = await appDbContext.EmployeeAttendances.CountAsync(x => x.Date == date && x.Status == Enums.AttendanceStatus.YES);
         return new AdminCountResponse(employeesCount);
     }
 }

@@ -5,7 +5,7 @@ namespace HaveLunch.Persistence;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
     
-    public DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
+    public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
 }

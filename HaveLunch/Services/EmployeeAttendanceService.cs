@@ -1,4 +1,5 @@
 using HaveLunch.Entities;
+using HaveLunch.Enums;
 using HaveLunch.Models;
 using HaveLunch.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,12 @@ public class EmployeeAttendanceService(AppDbContext appDbContext) : IEmployeeAtt
 {
     public async Task<EmployeeAttendanceResponse> CreateOrUpdateEmployeeAttendance(EmployeeAttendanceRequest request)
     {
-        var employee = await appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == request.EmployeeId);
-        if(employee == null)
+        if(request.Status == AttendanceStatus.NOT_SPECIFIED) 
         {
-            throw new Exception("Employee Not Found!");
+            throw new Exception("Invalid Attendance Status");
         }
+        var employee = await appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == request.EmployeeId) 
+                        ?? throw new Exception("Employee Not Found!");
         var employeeAttendance = await appDbContext
                                     .EmployeeAttendances
                                     .Include(x => x.Employee)
@@ -55,11 +57,23 @@ public class EmployeeAttendanceService(AppDbContext appDbContext) : IEmployeeAtt
 
     public async Task<EmployeeAttendanceResponse> GetEmployeeAttendanceDetail(int employeeId, DateTime date)
     {
+        var employee = await appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == employeeId) 
+                            ?? throw new Exception("Employee Not Found!");
         var employeeAttendance = await appDbContext
                                     .EmployeeAttendances
                                     .Include(x => x.Employee)
-                                    .FirstOrDefaultAsync(x => x.EmployeeId == employeeId && x.Date == date) 
-                                    ?? throw new Exception("Employee Attendance Not Found for the given date");
+                                    .FirstOrDefaultAsync(x => x.EmployeeId == employeeId && x.Date == date);
+        if(employeeAttendance == null)
+        {
+            return new EmployeeAttendanceResponse()
+            {
+                Id = 0,
+                EmployeeId = employeeId,
+                EmployeeName = employee.Name,
+                Date = date,
+                Status = AttendanceStatus.NOT_SPECIFIED
+            };
+        }
         return new EmployeeAttendanceResponse()
         {
             Id = employeeAttendance.Id,

@@ -1,3 +1,4 @@
+using HaveLunch.Models;
 using HaveLunch.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,14 @@ public class AdminController(IAdminService adminService) : Controller
     [HttpGet]
     public async Task<IActionResult> GetLunchAttendanceCount(string date = "")
     {
-        var dateTime = DateTime.Parse(date).ToUniversalTime();
-        return Ok(await adminService.GetLunchAttendanceCount(dateTime));
+        try
+        {
+            var dateTime = DateTime.Parse(date).ToUniversalTime();
+            return Ok(await adminService.GetLunchAttendanceCount(dateTime));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

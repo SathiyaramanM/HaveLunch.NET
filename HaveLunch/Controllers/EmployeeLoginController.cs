@@ -9,7 +9,7 @@ namespace HaveLunch.Controllers;
 public class EmployeeLoginController(IEmployeeService employeeService): Controller
 {
     [HttpPost]
-    public async Task<IActionResult> Login(EmployeeLoginModel model)
+    public async Task<IActionResult> LoginAsync(EmployeeLoginModel model)
     {
         try
         {

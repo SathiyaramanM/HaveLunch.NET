@@ -11,7 +11,7 @@ namespace HaveLunch.Tests.Services;
 public class EmployeeServiceTest
 {
     [Fact]
-    public async Task LoginAsync_ShouldReturnSameLoginDetails()
+    public async Task LoginAsync_ShouldReturnSameLoginDetails_ForAllTime()
     {
         var sampleData = new List<Employee>() { new() { Id = 1, Name = "Bruce" } };
         var dbContext = new Mock<AppDbContext>(new DbContextOptions<AppDbContext>());
@@ -30,7 +30,7 @@ public class EmployeeServiceTest
     }
 
     [Fact]
-    public async Task LoginAsync_ShouldCreateLoginIfNotExist()
+    public async Task LoginAsync_ShouldCreateLogin_IfNotExist()
     {
         var dbContext = new Mock<AppDbContext>(new DbContextOptions<AppDbContext>());
         dbContext.Setup(x => x.Employees).ReturnsDbSet([]);
@@ -48,7 +48,7 @@ public class EmployeeServiceTest
     }
 
     [Fact]
-    public async Task LoginAsync_ShouldUpdateDetailsIfAlreadyExist()
+    public async Task LoginAsync_ShouldUpdateDetails_IfAlreadyExist()
     {
         var sampleData = new List<Employee>() { new() { Id = 1, Name = "Bruce" } };
         var dbContext = new Mock<AppDbContext>(new DbContextOptions<AppDbContext>());

@@ -33,7 +33,7 @@ public class AdminServiceTest
     }
     
     [Fact]
-    public async Task GetLunchAttendanceCount_ShouldReturnNoOfEmployeesMarkedYesOnGivenDate()
+    public async Task GetLunchAttendanceCount_ShouldReturnNoOfEmployees_MarkedYesOnGivenDate()
     {
         var service = new AdminService(dbContext.Object);
 

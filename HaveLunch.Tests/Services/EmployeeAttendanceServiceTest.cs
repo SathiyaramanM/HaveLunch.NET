@@ -25,7 +25,7 @@ public class EmployeeAttendanceServiceTest
     }
 
     [Fact]
-    public async Task GetEmployeeAttendanceDetail_ShouldReturnStatusForGivenEmployeeOnGivenDate()
+    public async Task GetEmployeeAttendanceDetail_ShouldReturnStatus_ForGivenEmployeeOnGivenDate()
     {
         List<EmployeeAttendance> employeeAttendances = [
             new() { Id = 1, Employee = employees[0], EmployeeId = 1, Date = new DateTime(2023, 5, 25), Status = AttendanceStatus.YES },
@@ -42,7 +42,7 @@ public class EmployeeAttendanceServiceTest
     }
 
     [Fact]
-    public async Task GetEmployeeAttendanceDetail_ShouldReturnNotSpecifiedStatusWhenAttendanceNotFound()
+    public async Task GetEmployeeAttendanceDetail_ShouldReturnNotSpecifiedStatus_WhenAttendanceNotFound()
     {
         dbContext.Setup(x => x.EmployeeAttendances).ReturnsDbSet([]);
         var service = new EmployeeAttendanceService(dbContext.Object);
@@ -58,7 +58,7 @@ public class EmployeeAttendanceServiceTest
     }
 
     [Fact]
-    public async Task GetEmployeeAttendanceDetail_ShouldThrowExceptionWhenEmployeeNotFound()
+    public async Task GetEmployeeAttendanceDetail_ShouldThrowException_WhenEmployeeNotFound()
     {
         dbContext.Setup(x => x.EmployeeAttendances).ReturnsDbSet([]);
         var service = new EmployeeAttendanceService(dbContext.Object);
@@ -71,7 +71,7 @@ public class EmployeeAttendanceServiceTest
     [Theory]
     [InlineData(AttendanceStatus.YES)]
     [InlineData(AttendanceStatus.NO)]
-    public async Task CreateOrUpdateEmployeeAttendance_ShouldMarkStatusForGivenEmployeeOnSelectDate(AttendanceStatus status)
+    public async Task CreateOrUpdateEmployeeAttendance_ShouldMarkStatus_ForGivenEmployeeOnSelectDate(AttendanceStatus status)
     {
         List<EmployeeAttendance> employeeAttendances = [
             new() { Id = 1, Employee = employees[0], EmployeeId = 1, Date = new DateTime(2023, 5, 25), Status = AttendanceStatus.YES },
@@ -96,7 +96,7 @@ public class EmployeeAttendanceServiceTest
     }
 
     [Fact]
-    public async Task CreateOrUpdateEmployeeAttendance_ShouldThrowExceptionWhenMarkInvalidStatus()
+    public async Task CreateOrUpdateEmployeeAttendance_ShouldThrowException_WhenMarkInvalidStatus()
     {
         List<EmployeeAttendance> employeeAttendances = [
             new() { Id = 1, Employee = employees[0], EmployeeId = 1, Date = new DateTime(2023, 5, 25), Status = AttendanceStatus.YES },
